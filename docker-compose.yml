@@ -1,0 +1,42 @@
+# ──────────────────────────────────────────────────────────
+#  gmc-skills server deployment (single-instance)
+#  usage:  cp .env.example .env   # edit values
+#          docker compose up -d --build
+#  logs:   docker compose logs -f
+# ──────────────────────────────────────────────────────────
+
+services:
+  gmc-skills-server:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    image: gmc-skills-server:local
+    container_name: gmc-skills-server
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      # Paths inside the container (fixed — do not override in .env).
+      GMC_SKILLS_STORAGE: /var/lib/gmc-skills/workdir
+      GMC_SKILLS_STATS_FILE: /var/lib/gmc-skills/stats.json
+      PORT: "8787"
+    ports:
+      - "${GMC_SKILLS_HOST_PORT:-8787}:8787"
+    volumes:
+      - gmc-data:/var/lib/gmc-skills
+    # healthcheck is defined in the Dockerfile; overrideable here if needed.
+
+  # ── Optional: Redis for counter storage (Phase 2) ────────
+  # Uncomment when migrating `stats.ts` to the Redis backend.
+  # redis:
+  #   image: redis:7-alpine
+  #   container_name: gmc-skills-redis
+  #   restart: unless-stopped
+  #   command: ["redis-server", "--appendonly", "yes", "--save", "60", "1"]
+  #   volumes:
+  #     - redis-data:/data
+  #   # Do not expose to host by default — keep it on the internal network.
+
+volumes:
+  gmc-data:
+  # redis-data:

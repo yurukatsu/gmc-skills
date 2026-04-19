@@ -1,0 +1,133 @@
+export type Lang = 'en' | 'ja';
+
+export const ALL_LANGS: Lang[] = ['en', 'ja'];
+
+export function parseLang(input: string | undefined | null): Lang {
+  if (!input) return 'en';
+  const lower = input.toLowerCase();
+  if (lower.startsWith('ja')) return 'ja';
+  return 'en';
+}
+
+type Strings = Record<string, string>;
+
+const EN: Strings = {
+  'brand.subtitle': 'An archive of agent skills',
+  'brand.filing': 'SKILL REGISTRY',
+  'list.entries_catalogued': 'entries catalogued',
+  'list.search_label': 'Search',
+  'list.search_placeholder': 'owner, name, description, tag…',
+  'list.filter_owner': 'Owner',
+  'list.filter_tag': 'Tag',
+  'list.empty': '— archive is empty —',
+  'list.no_match': '— no entries match —',
+  'list.ledger_shown': 'of total',
+  'list.press_slash': 'press / to search',
+  'list.page_prev': 'prev',
+  'list.page_next': 'next',
+  'list.col_version': 'Version',
+  'list.col_updated': 'Updated',
+  'list.col_tags': 'Tags',
+  'list.label_dl': 'DL',
+  'detail.back': 'return to archive',
+  'detail.card_header_prefix': 'Catalogue entry',
+  'detail.total_dl_suffix': 'total DL',
+  'detail.meta_owner': 'Owner',
+  'detail.meta_latest': 'Latest',
+  'detail.meta_versions': 'Versions',
+  'detail.meta_author': 'Author',
+  'detail.meta_tags': 'Tags',
+  'detail.meta_updated': 'Updated',
+  'detail.meta_last_download': 'Last download',
+  'detail.meta_install': 'Install',
+  'detail.history_head': 'Version history',
+  'detail.table_version': 'Version',
+  'detail.table_downloads': 'Downloads',
+  'detail.badge_latest': 'latest',
+  'detail.btn_download': 'DOWNLOAD',
+  'detail.copy_btn': 'COPY',
+  'detail.copied': 'COPIED!',
+  'detail.footer_versions_one': 'version',
+  'detail.footer_versions_many': 'versions',
+  'theme.auto': 'Auto',
+  'theme.light': 'Light',
+  'theme.dark': 'Dark',
+  'lang.switch': '日本語',
+  'list.sort_label': 'Sort',
+  'list.sort_name': 'Name',
+  'list.sort_downloads': 'Downloads',
+  'list.sort_updated': 'Updated',
+  'detail.readme_heading': 'README',
+  'detail.readme_empty': 'No README body.',
+  'detail.files_heading': 'Files',
+  'detail.files_hint': 'Click a file to view its source.',
+  'detail.files_binary': 'Binary file — not previewable.',
+  'detail.files_error': 'Could not load file.',
+  'detail.files_expand': 'Expand',
+  'detail.files_collapse': 'Collapse',
+  'detail.files_oversized': 'File too large to preview.',
+};
+
+const JA: Strings = {
+  'brand.subtitle': 'エージェントスキル アーカイブ',
+  'brand.filing': 'スキル レジストリ',
+  'list.entries_catalogued': '件登録',
+  'list.search_label': '検索',
+  'list.search_placeholder': 'オーナー・名前・説明・タグ…',
+  'list.filter_owner': 'オーナー',
+  'list.filter_tag': 'タグ',
+  'list.empty': '— アーカイブは空です —',
+  'list.no_match': '— 該当する SKILL はありません —',
+  'list.ledger_shown': '/ 全件',
+  'list.press_slash': '/ で検索',
+  'list.page_prev': '前へ',
+  'list.page_next': '次へ',
+  'list.col_version': 'バージョン',
+  'list.col_updated': '更新日',
+  'list.col_tags': 'タグ',
+  'list.label_dl': 'DL',
+  'detail.back': 'アーカイブに戻る',
+  'detail.card_header_prefix': 'カタログエントリ',
+  'detail.total_dl_suffix': '合計 DL',
+  'detail.meta_owner': 'オーナー',
+  'detail.meta_latest': '最新',
+  'detail.meta_versions': 'バージョン',
+  'detail.meta_author': '作者',
+  'detail.meta_tags': 'タグ',
+  'detail.meta_updated': '更新',
+  'detail.meta_last_download': '最終 DL',
+  'detail.meta_install': 'インストール',
+  'detail.history_head': 'バージョン履歴',
+  'detail.table_version': 'バージョン',
+  'detail.table_downloads': 'ダウンロード数',
+  'detail.badge_latest': '最新',
+  'detail.btn_download': 'ダウンロード',
+  'detail.copy_btn': 'コピー',
+  'detail.copied': 'コピー完了',
+  'detail.footer_versions_one': 'バージョン',
+  'detail.footer_versions_many': 'バージョン',
+  'theme.auto': '自動',
+  'theme.light': 'ライト',
+  'theme.dark': 'ダーク',
+  'lang.switch': 'English',
+  'list.sort_label': '並び替え',
+  'list.sort_name': '名前',
+  'list.sort_downloads': 'DL 数',
+  'list.sort_updated': '更新日',
+  'detail.readme_heading': 'README',
+  'detail.readme_empty': 'README 本文はありません。',
+  'detail.files_heading': 'ファイル',
+  'detail.files_hint': 'ファイルをクリックすると内容が表示されます。',
+  'detail.files_binary': 'バイナリファイルのためプレビューできません。',
+  'detail.files_error': 'ファイルを読み込めませんでした。',
+  'detail.files_expand': '拡大',
+  'detail.files_collapse': '縮小',
+  'detail.files_oversized': 'ファイルサイズが大きいためプレビューできません。',
+};
+
+const DICT: Record<Lang, Strings> = { en: EN, ja: JA };
+
+export function t(lang: Lang, key: keyof typeof EN): string {
+  const dict = DICT[lang];
+  return dict[key] ?? EN[key];
+}

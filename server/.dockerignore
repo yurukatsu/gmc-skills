@@ -1,0 +1,15 @@
+node_modules
+dist
+.env
+.env.*
+*.log
+.DS_Store
+registry-storage
+.git
+.gitignore
+.prettierrc*
+.prettierignore
+eslint.config.mjs
+README.md
+Dockerfile
+.dockerignore

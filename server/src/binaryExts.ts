@@ -1,0 +1,76 @@
+export const BINARY_EXTS = new Set<string>([
+  // images
+  'png',
+  'jpg',
+  'jpeg',
+  'gif',
+  'webp',
+  'avif',
+  'ico',
+  'bmp',
+  'tiff',
+  'tif',
+  'heic',
+  'heif',
+  // archives
+  'zip',
+  'tar',
+  'gz',
+  'tgz',
+  'bz2',
+  'tbz2',
+  'xz',
+  'txz',
+  '7z',
+  'rar',
+  // compiled / objects
+  'exe',
+  'dll',
+  'so',
+  'dylib',
+  'o',
+  'a',
+  'lib',
+  'wasm',
+  'class',
+  'jar',
+  'pyc',
+  // media
+  'mp3',
+  'mp4',
+  'mov',
+  'wav',
+  'ogg',
+  'webm',
+  'avi',
+  'flac',
+  'm4a',
+  'aac',
+  'm4v',
+  'mkv',
+  // fonts
+  'woff',
+  'woff2',
+  'ttf',
+  'otf',
+  'eot',
+  // documents
+  'pdf',
+  'doc',
+  'docx',
+  'xls',
+  'xlsx',
+  'ppt',
+  'pptx',
+  'odt',
+  'ods',
+  'odp',
+  // db
+  'sqlite',
+  'db',
+]);
+
+export function isBinaryByName(name: string): boolean {
+  const m = /\.([^.]+)$/.exec(name);
+  return m ? BINARY_EXTS.has(m[1].toLowerCase()) : false;
+}
